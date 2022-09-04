@@ -4,6 +4,27 @@
 
 {% block body %}
 
+<main>
+    <div class="wrapper">
 
+    <ul class="characters-list">
+
+        {% for houses in houses %}
+            <li class="character-card">
+                <a href="#character/1">
+
+                    <div class="avatar" style="background: #e3e3e3;">
+                        <img src="{{ asset(houses.image)}}" alt="Arya">
+                    </div>
+                    <div class="name">
+                        name
+                    </div>
+                </a>
+            </li>
+        {% endfor %}    
+    </ul>
+
+    </div>
+</main>
 
 {% endblock %}
