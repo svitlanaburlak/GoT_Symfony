@@ -7,14 +7,17 @@ use App\Entity\Title;
 use App\Entity\Character;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\TitleFixtures;
+use App\DataFixtures\HouseFixtures;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class CharacterFixtures extends Fixture
+class CharacterFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies()
     {
         return [
-            HouseFixtures::class,
             TitleFixtures::class,
+            HouseFixtures::class,
         ];
     }
 
@@ -22,14 +25,14 @@ class CharacterFixtures extends Fixture
     {
         $characters = [
             [
-                "firstname" => "Arya",
-                "lastname" => "Stark",
-                "image" => "arya.png",
-                "biography" => "Née en l\'an 289, Arya Stark  est la seconde fille de lord Eddard Stark et de lady Catelyn Stark. C\'est une jeune fille rebelle de neuf ans que tout oppose à sa sœur aînée Sansa. Elle préfère les combats à l’épée et les aventures dans les couloirs abandonnés du château en compagnie de son demi-frère bâtard Jon, avec qui elle entretient une relation privilégiée, aux arts d\'agrément qui constituent le seul enseignement dispensé aux filles de grande maison. Tous deux sont les seuls enfants Stark à ressembler physiquement à leur père. En effet, à l\'instar de Jon, elle est brune et a les yeux gris de lord Eddard, plutôt fluette, elle a également hérité de ce dernier sa figure longue et solennelle, ce qui a d\'ailleurs poussé Arya à penser qu\'elle était elle-même une bâtarde. Ils sont très complices, partagent un sens aigu de l\'injustice et sont tous deux frustrés par les limites que leur imposent leurs conditions respectives de fille et de bâtard. Elle passe pour ressembler également à feu sa tante Lyanna mais davantage par son côté impétueux, vif et avide de découvertes que par son apparence, Lyanna ayant été remarquablement jolie. Exagérant ses disgrâces, elle dresse d\'elle-même un portrait peu flatteur. Elle aime l’aventure et rêve de légendes anciennes. D\'un caractère farouche et opiniâtre, elle peut s\'avérer des plus têtues. Son côté emporté et impulsif peut d\'ailleurs l\'amener à se montrer peu lucide et irréfléchie voire d\'une violence extrême. Très fière, Arya a la hantise qu\'on la soupçonne d\'être lâche et la passivité lui est un véritable supplice. Elle n\'en est pas moins courageuse, loyale, protectrice et sait faire preuve de sang-froid dans les situations délicates. Décrite par sa mère comme « Mi-garçon mi-chiot de loup », elle adore faire ce qui lui est interdit, ne dédaigne pas la provocation et semble réservée quant à ses sentiments. Elle peut toutefois se révéler fort tendre et affectueuse, notamment avec son père et son demi-frère. Très alerte, Arya est une bonne chasseresse et une grimpeuse adroite. Peu concernée par les élégances vestimentaires, elle privilégie souvent les tenues masculines, plus pratiques et moins contraignantes. Elle ne semble pas avoir de préférence religieuse marquée et elle prie aussi bien dans le septuaire de sa mère que dans le bois sacré en compagnie de lord Eddard. Toutefois, lorsqu\'elle se trouve en difficulté, il semble qu\'elle invoque spontanément les anciens dieux de son père. Elle a pour manie de se mâchouiller la lèvre.",
-                "motherId" => 3,
-                "fatherId" => 2,
-                "title" => "Lady",
-                "house" => ["Stark"],
+                'firstname' => 'Arya',
+                'lastname' => 'Stark',
+                'image' => 'arya.png',
+                'biography' => 'Née en l\'an 289, Arya Stark  est la seconde fille de lord Eddard Stark et de lady Catelyn Stark. C\'est une jeune fille rebelle de neuf ans que tout oppose à sa sœur aînée Sansa. Elle préfère les combats à l’épée et les aventures dans les couloirs abandonnés du château en compagnie de son demi-frère bâtard Jon, avec qui elle entretient une relation privilégiée, aux arts d\'agrément qui constituent le seul enseignement dispensé aux filles de grande maison. Tous deux sont les seuls enfants Stark à ressembler physiquement à leur père. En effet, à l\'instar de Jon, elle est brune et a les yeux gris de lord Eddard, plutôt fluette, elle a également hérité de ce dernier sa figure longue et solennelle, ce qui a d\'ailleurs poussé Arya à penser qu\'elle était elle-même une bâtarde. Ils sont très complices, partagent un sens aigu de l\'injustice et sont tous deux frustrés par les limites que leur imposent leurs conditions respectives de fille et de bâtard. Elle passe pour ressembler également à feu sa tante Lyanna mais davantage par son côté impétueux, vif et avide de découvertes que par son apparence, Lyanna ayant été remarquablement jolie. Exagérant ses disgrâces, elle dresse d\'elle-même un portrait peu flatteur. Elle aime l’aventure et rêve de légendes anciennes. D\'un caractère farouche et opiniâtre, elle peut s\'avérer des plus têtues. Son côté emporté et impulsif peut d\'ailleurs l\'amener à se montrer peu lucide et irréfléchie voire d\'une violence extrême. Très fière, Arya a la hantise qu\'on la soupçonne d\'être lâche et la passivité lui est un véritable supplice. Elle n\'en est pas moins courageuse, loyale, protectrice et sait faire preuve de sang-froid dans les situations délicates. Décrite par sa mère comme « Mi-garçon mi-chiot de loup », elle adore faire ce qui lui est interdit, ne dédaigne pas la provocation et semble réservée quant à ses sentiments. Elle peut toutefois se révéler fort tendre et affectueuse, notamment avec son père et son demi-frère. Très alerte, Arya est une bonne chasseresse et une grimpeuse adroite. Peu concernée par les élégances vestimentaires, elle privilégie souvent les tenues masculines, plus pratiques et moins contraignantes. Elle ne semble pas avoir de préférence religieuse marquée et elle prie aussi bien dans le septuaire de sa mère que dans le bois sacré en compagnie de lord Eddard. Toutefois, lorsqu\'elle se trouve en difficulté, il semble qu\'elle invoque spontanément les anciens dieux de son père. Elle a pour manie de se mâchouiller la lèvre.',
+                'mother' => 3,
+                'father' => 2,
+                'title' => 'Lady',
+                'house' => ['Stark'],
             ],
             [
                 "firstname" => "Eddard",
@@ -236,21 +239,25 @@ class CharacterFixtures extends Fixture
 
         foreach($characters as $character)
         {
-            $characterObj = new Character();
-            $characterObj->setFirstName($character["firstname"]);
-            $characterObj->setLastName($character["lastname"]);
-            $characterObj->setImage($character["image"]);
-            $characterObj->setBiography($character["biography"]);
+            
+            // $characterObj = new Character();
+            
+            // $characterObj->setFirstName($character['firstname']);
+            // $characterObj->setLastName($character['lastname']);
+            // $characterObj->setImage($character['image']);
+            // $characterObj->setBiography($character['biography']);
+            // $characterObj->setCreatedAt(new \DateTime);
+            // $characterObj->setTitle($this->getReference($character["title"]));
+            // foreach($character["house"] as $house) {
+            //      $characterObj->addHouse($this->getReference($house));
+            // }
+            // $characterObj->setMother($manager->find(Character::class, $character["mother"]));
+            // dd($characterObj);
 
-            $characterObj->setTitle($this->getReference($character["title"]));
-            foreach($characters["house"] as $house) {
-                $characterObj->addHouse($this->getReference($house));
-            }
-
-            $manager->persist($characterObj);
-           
+            // $manager->persist($characterObj);
         }
 
+        // dd('out of foreach');
         $manager->flush();
     }
 }

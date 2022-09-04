@@ -2,9 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\House;
 use App\Entity\Title;
-use App\Entity\Character;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -25,8 +23,11 @@ class TitleFixtures extends Fixture
         ];
 
         foreach ($titles as $title) {
+
             $titleObj = new Title();
             $titleObj->setName($title);
+
+            $titleObj->setCreatedAt(new \DateTime);
 
             $manager->persist($titleObj);
             $this->addReference($title, $titleObj);

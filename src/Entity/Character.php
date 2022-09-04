@@ -20,54 +20,55 @@ class Character
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="firstname", type="string", length=255)
      */
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="image", type="string", length=255)
      */
     private $image;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(name="biography", type="text")
      */
     private $biography;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
      */
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
+     * 
      * @ORM\ManyToOne(targetEntity=Title::class, inversedBy="characters")
      */
     private $title;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToMany(targetEntity=House::class, inversedBy="characters")
      */
-    private $motherId;
+    private $house;
 
     /**
      * @ORM\ManyToOne(targetEntity=Character::class)
      */
-    private $fatherId;
+    private $mother;
 
     /**
-     * @ORM\ManyToMany(targetEntity=House::class, inversedBy="characters")
+     * @ORM\ManyToOne(targetEntity=Character::class)
      */
-    private $house;
+    private $father;
 
     public function __construct()
     {
@@ -163,30 +164,6 @@ class Character
         return $this;
     }
 
-    public function getMotherId(): ?int
-    {
-        return $this->motherId;
-    }
-
-    public function setMotherId(?int $motherId): self
-    {
-        $this->motherId = $motherId;
-
-        return $this;
-    }
-
-    public function getFatherId(): ?self
-    {
-        return $this->fatherId;
-    }
-
-    public function setFatherId(?self $fatherId): self
-    {
-        $this->fatherId = $fatherId;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, House>
      */
@@ -207,6 +184,30 @@ class Character
     public function removeHouse(House $house): self
     {
         $this->house->removeElement($house);
+
+        return $this;
+    }
+
+    public function getMother(): ?self
+    {
+        return $this->mother;
+    }
+
+    public function setMother(?self $mother): self
+    {
+        $this->mother = $mother;
+
+        return $this;
+    }
+
+    public function getFather(): ?self
+    {
+        return $this->father;
+    }
+
+    public function setFather(?self $father): self
+    {
+        $this->father = $father;
 
         return $this;
     }
