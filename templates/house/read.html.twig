@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<main>
+    <div class="wrapper">
+        <h2>Maison {{house.name}}</h2>
+    
+        <ul class="characters-list">
+            {% for personage in house.personages %}
+            <li class="character-card">
+                <a href="{{ path('app_personage', {'id': personage.id}) }}">               
+                    <div class="avatar" style="background: #{{house.colour}};">
+                        <img src="{{ asset('images/'~ personage.image)}}" alt="{{personage.firstname}}">
+                    </div>
+                    <div class="name">
+                        {{personage.firstname}} {{personage.lastname}}
+                    </div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>        
+    </div>
+</main>
+{% endblock %}

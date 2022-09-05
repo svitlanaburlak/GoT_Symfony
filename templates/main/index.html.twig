@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
-
 {% block body %}
 
 <main>
@@ -11,10 +9,10 @@
 
         {% for personage in personages %}
             <li class="character-card">
-                <a href="#character/1">
+                <a href="{{ path('app_personage', {'id': personage.id}) }}">
 
                     <div class="avatar" style="background: #e3e3e3;">
-                        <img src="{{ asset(personage.image)}}" alt="Arya">
+                        <img src="{{ asset('images/'~ personage.image)}}" alt="Arya">
                     </div>
                     <div class="name">
                         {{personage.firstname}}

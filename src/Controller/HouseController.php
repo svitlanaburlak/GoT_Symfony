@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\HouseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,12 +10,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class HouseController extends AbstractController
 {
     /**
-     * @Route("/house", name="app_house")
+     * @Route("/house", name="app_house_list")
      */
-    public function index(): Response
+    public function list(HouseRepository $houseRepository): Response
     {
-        return $this->render('house/index.html.twig', [
-            'controller_name' => 'HouseController',
+        $houses = $houseRepository->findAll();
+        return $this->render('house/list.html.twig', [
+            'houses' => $houses,
+        ]);
+    }
+
+    /**
+     * @Route("/house/{id}", name="app_house_read", requirements={"id"="\d+"})
+     */
+    public function read(HouseRepository $houseRepository, int $id): Response
+    {
+        $house = $houseRepository->find($id);
+        return $this->render('house/read.html.twig', [
+            'house' => $house,
         ]);
     }
 }

@@ -1,18 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CharacterController!{% endblock %}
-
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-    </ul>
-</div>
+<main>
+    <div class="wrapper">
+        <section class="character-page">
+        <div class="col-8">
+            <h2>{{personage.firstname}} {{personage.lastname}}</h2>
+            <div class="bio">
+                <h3>Biographie</h3>
+                <p>{{personage.biography}}</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="avatar" style="background: #e3e3e3;">
+                <img src="{{ asset('images/'~ personage.image)}}" alt="{{personage.firstname}}">
+            </div>
+            <div class="infos">
+                <h3>Maisons</h3>
+                <div class="houses">
+                    <ul>
+                    {% for house in personage.house %}
+                        <li class="house-logo" style="background: #{{house.colour}};">
+                            <a href="{{ path('app_house_read', {'id': house.id}) }}">
+                                <img src="{{ asset('images/houses/'~ house.image)}}" alt="{{house.name}}">
+                            </a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                <ul class="meta">
+                    <li><span>Rang :</span> {{personage.title.name}}</li>
+                    <li><span>Mère :</span> 
+                        {% if personage.mother is not null %}
+                            {{personage.mother.firstname}} {{personage.mother.lastname}}
+                        {% else %}  
+                            Non renseigné
+                        {% endif %}
+                    </li>
+                    <li><span>Père :</span> 
+                        {% if personage.father is not null %}
+                            {{personage.father.firstname}} {{personage.father.lastname}}
+                        {% else %}  
+                            Non renseigné
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </section>
+    </div>
+</main>
 {% endblock %}

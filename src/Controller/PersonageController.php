@@ -10,13 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class PersonageController extends AbstractController
 {
     /**
-     * @Route("/personage", name="app_personage")
+     * @Route("/personage/{id}", name="app_personage", requirements={"id"="\d+"})
      */
-    public function index(PersonageRepository $personageRepository): Response
+    public function index(PersonageRepository $personageRepository, int $id): Response
     {
-        $personages = $personageRepository->findAll();
+        $personage = $personageRepository->find($id);
         return $this->render('personage/index.html.twig', [
-            'personages' => $personages,
+            'personage' => $personage,
         ]);
     }
 }
