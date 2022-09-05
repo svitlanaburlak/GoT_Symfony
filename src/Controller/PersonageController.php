@@ -2,22 +2,20 @@
 
 namespace App\Controller;
 
-use App\Repository\HouseRepository;
-
 use App\Repository\PersonageRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class MainController extends AbstractController
+class PersonageController extends AbstractController
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/personage", name="app_personage")
      */
     public function index(PersonageRepository $personageRepository): Response
     {
         $personages = $personageRepository->findAll();
-        return $this->render('main/index.html.twig', [
+        return $this->render('personage/index.html.twig', [
             'personages' => $personages,
         ]);
     }

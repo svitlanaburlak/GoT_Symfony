@@ -45,13 +45,13 @@ class House
     private $updatedAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Character::class, mappedBy="house")
+     * @ORM\ManyToMany(targetEntity=Personage::class, mappedBy="house")
      */
-    private $characters;
+    private $personages;
 
     public function __construct()
     {
-        $this->characters = new ArrayCollection();
+        $this->personages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,29 +120,30 @@ class House
     }
 
     /**
-     * @return Collection<int, Character>
+     * @return Collection<int, Personage>
      */
-    public function getCharacters(): Collection
+    public function getPersonages(): Collection
     {
-        return $this->characters;
+        return $this->personages;
     }
 
-    public function addCharacter(Character $character): self
+    public function addPersonage(Personage $personage): self
     {
-        if (!$this->characters->contains($character)) {
-            $this->characters[] = $character;
-            $character->addHouse($this);
+        if (!$this->personages->contains($personage)) {
+            $this->personages[] = $personage;
+            $personage->addHouse($this);
         }
 
         return $this;
     }
 
-    public function removeCharacter(Character $character): self
+    public function removePersonage(Personage $personage): self
     {
-        if ($this->characters->removeElement($character)) {
-            $character->removeHouse($this);
+        if ($this->personages->removeElement($personage)) {
+            $personage->removeHouse($this);
         }
 
         return $this;
     }
+
 }

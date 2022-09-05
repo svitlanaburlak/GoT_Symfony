@@ -9,15 +9,15 @@
 
     <ul class="characters-list">
 
-        {% for houses in houses %}
+        {% for personage in personages %}
             <li class="character-card">
                 <a href="#character/1">
 
                     <div class="avatar" style="background: #e3e3e3;">
-                        <img src="{{ asset(houses.image)}}" alt="Arya">
+                        <img src="{{ asset(personage.image)}}" alt="Arya">
                     </div>
                     <div class="name">
-                        name
+                        {{personage.firstname}}
                     </div>
                 </a>
             </li>

@@ -35,13 +35,13 @@ class Title
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=Character::class, mappedBy="title")
+     * @ORM\OneToMany(targetEntity=Personage::class, mappedBy="title")
      */
-    private $characters;
+    private $personages;
 
     public function __construct()
     {
-        $this->characters = new ArrayCollection();
+        $this->personages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,32 +86,33 @@ class Title
     }
 
     /**
-     * @return Collection<int, Character>
+     * @return Collection<int, Personage>
      */
-    public function getCharacters(): Collection
+    public function getPersonages(): Collection
     {
-        return $this->characters;
+        return $this->personages;
     }
 
-    public function addCharacter(Character $character): self
+    public function addPersonage(Personage $personage): self
     {
-        if (!$this->characters->contains($character)) {
-            $this->characters[] = $character;
-            $character->setTitle($this);
+        if (!$this->personages->contains($personage)) {
+            $this->personages[] = $personage;
+            $personage->setTitle($this);
         }
 
         return $this;
     }
 
-    public function removeCharacter(Character $character): self
+    public function removePersonage(Personage $personage): self
     {
-        if ($this->characters->removeElement($character)) {
+        if ($this->personages->removeElement($personage)) {
             // set the owning side to null (unless already changed)
-            if ($character->getTitle() === $this) {
-                $character->setTitle(null);
+            if ($personage->getTitle() === $this) {
+                $personage->setTitle(null);
             }
         }
 
         return $this;
     }
+
 }

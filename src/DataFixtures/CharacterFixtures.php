@@ -4,7 +4,6 @@ namespace App\DataFixtures;
 
 use App\Entity\House;
 use App\Entity\Title;
-use App\Entity\Character;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\TitleFixtures;
